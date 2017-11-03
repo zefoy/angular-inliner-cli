@@ -1,6 +1,6 @@
 {
   "name": "angular-inliner-cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Inlines template and styles for compiled Angular components",
   "bugs": "https://github.com/zefoy/angular-inliner-cli/issues",
   "license": "MIT",

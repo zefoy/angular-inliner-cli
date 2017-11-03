@@ -75,6 +75,8 @@ function processStyleUrls(directory, content, compress) {
 		return Promise.all(matches.map(() => {
 			var exec = re.exec(result);
 
+			var quote = exec[3].trim()[1];
+
 			var urls = JSON.parse(exec[3].replace(/'/g, '"'));
 
 			return Promise.all(urls.map((url) => {
@@ -99,13 +101,13 @@ function processStyleUrls(directory, content, compress) {
 					}
 
 					// Escape quotes
-					file = file.replace(new RegExp('\'', 'g'), '\\\'');
+					file = file.replace(new RegExp(quote, 'g'), '\\' + quote);
 
 					return file;
 				}
 			})).then((files) => {
 				result = result.replace(exec[0], exec[1] + 'styles' + exec[2] +
-					': [\'' + files.join('') + '\']');
+					': [' + quote + files.join('') + quote + ']');
 			});
 		})).then(() => {
 			return result;
