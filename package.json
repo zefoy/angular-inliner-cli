@@ -1,0 +1,29 @@
+{
+  "name": "angular-inliner-cli",
+  "version": "1.0.0",
+  "description": "Inlines template and styles for compiled Angular components",
+  "bugs": "https://github.com/zefoy/angular-inliner-cli/issues",
+  "license": "MIT",
+  "bin": {
+    "ngi": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "files": [
+    "index.js",
+    "bin/inliner.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zefoy/angular-inliner-cli.git"
+  },
+  "dependencies": {
+    "clean-css": "^4.1.0",
+    "glob": "^7.1.0",
+    "html-minifier": "^3.5.0",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+  }
+}
