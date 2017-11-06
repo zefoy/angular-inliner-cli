@@ -23,7 +23,7 @@
 	if (!directory) {
 		console.log('ngi [-s|--silent] [-c|--compress] <directory>');
 	} else {
-		glob(directory + '/*component.*(js|metadata.json)', {}, (error, files) => {
+		glob(directory + '/**/*.+(component.js|metadata.json)', {}, (error, files) => {
 			if (error) {
 				console.error('Failed to find component files from: ' + directory);
 
@@ -39,7 +39,7 @@
 							console.log('Procesing: ' + target);
 						}
 
-						inliner(path.dirname(target), content.toString(), args.compress)
+						inliner(directory, content.toString(), args.compress)
 							.then((result) => {
 								fs.writeFile(target, result, (error) => {
 									if (error) {
