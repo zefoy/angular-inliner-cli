@@ -14,12 +14,12 @@ var htmlMinifierConfig = {
 	ignoreCustomFragments: [/\s\[.*\]=\"[^\"]*\"/, /\s\([^)"]+\)=\"[^\"]*\"/]
 };
 
-module.exports = function(directory, content, compress) {
-	return processTemplateUrl(directory, content, compress).then((result) =>
-		processStyleUrls(directory, result, compress));
+module.exports = function(directory, content, compress, json) {
+	return processTemplateUrl(directory, content, compress, json).then((result) =>
+		processStyleUrls(directory, result, compress, json));
 };
 
-function processTemplateUrl(directory, content, compress) {
+function processTemplateUrl(directory, content, compress, json) {
 	var result = content;
 
 	var re = /('|"|\s*)templateUrl('|"|\s*):\s*(?:'([^']+)'|"([^"]+)")/g;
@@ -48,6 +48,11 @@ function processTemplateUrl(directory, content, compress) {
 					{removeComments: true}));
 			}
 
+      if (json) {
+        // Escape backslashes
+  			file = file.replace(new RegExp('\\\\', 'g'), '\\\\');
+      }
+
 			// Escape quotes
 			file = file.replace(new RegExp(quote, 'g'), '\\' + quote);
 
@@ -62,7 +67,7 @@ function processTemplateUrl(directory, content, compress) {
 	}
 }
 
-function processStyleUrls(directory, content, compress) {
+function processStyleUrls(directory, content, compress, json) {
 	var result = content;
 
 	var re = /('|"|\s*)styleUrls('|"|\s*):\s*(\[[^](.[^]*?)\])/g;
@@ -99,6 +104,11 @@ function processStyleUrls(directory, content, compress) {
 					} else {
 						file = new CleanCSS().minify(file).styles;
 					}
+
+          if (json) {
+            // Escape backslashes
+  			    file = file.replace(new RegExp('\\\\', 'g'), '\\\\');
+          }
 
 					// Escape quotes
 					file = file.replace(new RegExp(quote, 'g'), '\\' + quote);

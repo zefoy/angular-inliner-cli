@@ -39,7 +39,7 @@
 							console.log('Procesing: ' + target);
 						}
 
-						inliner(directory, content.toString(), args.compress)
+						inliner(directory, content.toString(), args.compress, file.slice(-4) === 'json')
 							.then((result) => {
 								fs.writeFile(target, result, (error) => {
 									if (error) {
